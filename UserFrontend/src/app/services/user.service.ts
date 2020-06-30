@@ -19,8 +19,9 @@ export class UserService {
     .pipe(catchError(this.handleError));
   }
 
-  public getUsersBySearch(): Observable<User[]> {
-    return of();
+  public getUsersBySearch(searchTerm: string): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.userApiBaseUrl + `/search/${searchTerm}`)
+    .pipe(catchError(this.handleError));
   }
 
   

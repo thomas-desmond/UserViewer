@@ -59,10 +59,10 @@ const user1: User = {
 
 const user2: User = {
   id: 1,
-  firstName: "Thomas",
-  lastName: "Desmond",
-  address: "123 Main St",
+  firstName: "John",
+  lastName: "Smith",
+  address: "456 Main St",
   age: 0,
-  interests: "Hiking, Motorcycle, Geocaching",
-  picture: "fakePath/image1.png",
+  interests: "Jogging, Video Games, Deep Sea Diving",
+  picture: "fakePath/image2.png",
 };

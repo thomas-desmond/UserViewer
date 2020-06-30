@@ -4,7 +4,9 @@
       Enter Search Terms:
       <input type="text" formControlName="searchTerms">
   </label>
-  <button mat-button color="primary" (click)="handleFormSubmit()">Submit</button>
+  <button mat-button color="primary" [disabled]="searchForm.invalid" (click)="handleFormSubmit()">Submit</button>
+  <button mat-button color="accent" [disabled]="searchForm.invalid" (click)="handleClearForm()">Clear</button>
+
 </form>
 
 <div *ngFor="let user of userList$ | async">
