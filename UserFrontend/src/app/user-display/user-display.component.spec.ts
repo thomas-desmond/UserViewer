@@ -21,7 +21,6 @@ class MockUserService {
 describe('UserDisplayComponent', () => {
   let component: UserDisplayComponent;
   let fixture: ComponentFixture<UserDisplayComponent>;
-  let userService: UserService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -43,11 +42,19 @@ describe('UserDisplayComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should delete customer feed', () => {
+  it('should call getUsersBySearch when form submit button is clicked', () => {
     const mySpy = spyOn(component.userService, "getUsersBySearch").and.callThrough();
 
     component.handleFormSubmit();
 
     expect(mySpy).toHaveBeenCalledTimes(1);
   });
+
+  it('should call getAllUsers when form clear button is clicked', () => {
+    const mySpy = spyOn(component.userService, "getAllUsers").and.callThrough();
+
+    component.handleClearForm();
+
+    expect(mySpy).toHaveBeenCalledTimes(1);
+  })
 });
