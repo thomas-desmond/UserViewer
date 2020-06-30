@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,6 +18,12 @@ export class UserService {
     return this.httpClient.get<User[]>(this.userApiBaseUrl)
     .pipe(catchError(this.handleError));
   }
+
+  public getUsersBySearch(): Observable<User[]> {
+    return of();
+  }
+
+  
 
   handleError(error) {
     let errorMessage = '';

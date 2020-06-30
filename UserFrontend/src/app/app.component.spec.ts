@@ -5,13 +5,17 @@ import { UserDisplayComponent } from './user-display/user-display.component';
 import {
   HttpClientTestingModule,
 } from "@angular/common/http/testing";
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared/shared.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        SharedModule
       ],
       declarations: [
         AppComponent,

@@ -14,7 +14,7 @@ export class UserDisplayComponent implements OnInit {
   searchForm: FormGroup;
   public userList$: Observable<User[]>;
 
-  constructor(private userService: UserService, private fb: FormBuilder) { 
+  constructor(public userService: UserService, private fb: FormBuilder) { 
     this.initializeForm();
   }
 
@@ -29,6 +29,6 @@ export class UserDisplayComponent implements OnInit {
   }
 
   handleFormSubmit(): void {
-    console.log("HIT THE SUBMIT");
+    this.userService.getUsersBySearch();
   }
 }
