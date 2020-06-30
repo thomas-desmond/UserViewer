@@ -11,6 +11,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 })
 export class UserDisplayComponent implements OnInit {
 
+  searchInProgress = false;
   searchForm: FormGroup;
   public userList$: Observable<User[]>;
 
@@ -30,10 +31,16 @@ export class UserDisplayComponent implements OnInit {
 
   handleFormSubmit(): void {
     // TODO: Do some form validation
-    this.userList$ = this.userService.getUsersBySearch(this.searchForm.controls.searchTerms.value);
+    this.userList$ = null;
+    this.searchInProgress = true;
+    setTimeout(function(){ 
+      this.userList$ = this.userService.getUsersBySearch(this.searchForm.controls.searchTerms.value);
+      this.searchInProgress = false;
+    }.bind(this), 2000);
   }
 
   handleClearForm(): void {
+    this.searchForm.controls.searchTerms.setValue('');
     this.userList$ = this.userService.getAllUsers();
   }
 }
