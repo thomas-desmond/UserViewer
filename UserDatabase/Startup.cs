@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using UserDatabase.Data;
+using UserDatabase.Models;
 
 namespace UserDatabase
 {
@@ -59,6 +60,55 @@ namespace UserDatabase
             {
                 endpoints.MapControllers();
             });
+
+            AddTestData(app);
+        }
+
+        private async void AddTestData(IApplicationBuilder app)
+        {
+
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetService<UserDatabaseContext>();
+                if (context.User.Count() >= 0)
+                {
+                    return;
+                }
+
+                var user1 = new User
+                {
+                    FirstName = "Thomas",
+                    LastName = "Smith",
+                    Address = "123 Main Street",
+                    Age = 32,
+                    Interests = "All the fun things",
+                    Picture = "https://user-images-temp.s3.amazonaws.com/face3.jpg"
+                };
+                var user2 = new User
+                {
+                    FirstName = "Thomas",
+                    LastName = "Desmond",
+                    Address = "458 Arrow",
+                    Age = 39,
+                    Interests = "Motorcycles, Hiking, Programming, Geocaching",
+                    Picture = "https://user-images-temp.s3.amazonaws.com/face2.jpg"
+                }; 
+                var user3 = new User
+                {
+                    FirstName = "Annie",
+                    LastName = "Elliott",
+                    Address = "1212 Jefferson",
+                    Age = 25,
+                    Interests = "Sewing, Hiking, Television",
+                    Picture = "https://user-images-temp.s3.amazonaws.com/face1.jpg"
+                };
+                context.User.Add(user1);
+                context.User.Add(user2);
+                context.User.Add(user3);
+
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
