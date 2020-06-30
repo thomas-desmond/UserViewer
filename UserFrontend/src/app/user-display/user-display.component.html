@@ -1,3 +1,16 @@
-<li *ngFor="let user of userList$ | async">
-    Id: {{user.id}} Name: {{user.firstName}} {{user.lastName}}
-</li>
+<div *ngFor="let user of userList$ | async">
+    <mat-card class="user-card">
+        <mat-card-header>
+            <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="user-card-content">
+            <div>
+                <div><b>Address: </b>{{user.address}}</div>
+                <div><b>Age: </b>{{user.age}}</div>
+                <div><b>Interests: </b>{{user.interests}}</div>
+            </div>
+            <div><img src="https://user-images-temp.s3.amazonaws.com/face2.jpg" height="100" width="100">
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
