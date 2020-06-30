@@ -12,7 +12,7 @@ namespace UserDatabase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : Controller
     {
         private readonly UserDatabaseContext _context;
 
@@ -23,7 +23,7 @@ namespace UserDatabase.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.User.ToListAsync();
         }
@@ -40,6 +40,24 @@ namespace UserDatabase.Controllers
             }
 
             return user;
+        }
+
+
+        // GET: api/Users/search/{term}
+        [HttpGet("search/{searchTerm}")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUserBySearchTerm(string searchTerm)
+        {
+            searchTerm = searchTerm.ToLower();
+
+            var users = await _context.User.Where(user => user.FirstName.ToLower().Contains(searchTerm) 
+                                                       || user.LastName.ToLower().Contains(searchTerm)).ToListAsync();
+
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return users;
         }
 
         // PUT: api/Users/5
@@ -105,6 +123,16 @@ namespace UserDatabase.Controllers
         private bool UserExists(int id)
         {
             return _context.User.Any(e => e.Id == id);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!disposing)
+            {
+                _context.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }
