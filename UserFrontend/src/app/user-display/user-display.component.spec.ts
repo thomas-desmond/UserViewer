@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserDisplayComponent } from './user-display.component';
+import {
+  HttpClientTestingModule,
+} from "@angular/common/http/testing";
 
 describe('UserDisplayComponent', () => {
   let component: UserDisplayComponent;
@@ -8,6 +11,7 @@ describe('UserDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [ UserDisplayComponent ]
     })
     .compileComponents();
