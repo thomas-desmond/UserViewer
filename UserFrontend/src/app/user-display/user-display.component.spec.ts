@@ -42,7 +42,7 @@ describe('UserDisplayComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getUsersBySearch when form submit button is clicked', () => {
+  it('should perform user search when form submit button is clicked', () => {
     const mySpy = spyOn(component.userService, "getUsersBySearch").and.callThrough();
 
     component.handleFormSubmit();
@@ -50,7 +50,7 @@ describe('UserDisplayComponent', () => {
     expect(mySpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should call getAllUsers when form clear button is clicked', () => {
+  it('should get all users when form clear button is clicked', () => {
     const mySpy = spyOn(component.userService, "getAllUsers").and.callThrough();
 
     component.handleClearForm();
