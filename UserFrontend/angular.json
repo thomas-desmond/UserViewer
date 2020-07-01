@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "UserFrontend"
+  "defaultProject": "UserFrontend",
+  "cli": {
+    "analytics": "64a174b9-1459-4e87-93e4-28f596170d4c"
+  }
 }
