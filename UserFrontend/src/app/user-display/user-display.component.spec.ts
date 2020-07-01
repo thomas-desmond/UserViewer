@@ -8,6 +8,8 @@ import { UserService } from '../services/user.service';
 import { of, } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared/shared.module';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 class MockUserService {
   getAllUsers() {
@@ -18,16 +20,24 @@ class MockUserService {
   }
 }
 
+class MockRouterService {
+  navigate() {
+    return;
+  }
+}
+
 describe('UserDisplayComponent', () => {
   let component: UserDisplayComponent;
   let fixture: ComponentFixture<UserDisplayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule, SharedModule],
+      imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule, SharedModule, RouterTestingModule],
       declarations: [UserDisplayComponent],
-      providers: [{ provide: UserService, useClass: MockUserService }]
-
+      providers: [
+        { provide: UserService, useClass: MockUserService },
+        { provide: Router, useClass: MockRouterService }
+      ]
     })
       .compileComponents();
   }));
