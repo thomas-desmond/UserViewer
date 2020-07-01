@@ -6,7 +6,7 @@
   </label>
   <button mat-button color="primary" [disabled]="searchForm.invalid" (click)="handleFormSubmit()">Submit</button>
   <button mat-button color="accent" [disabled]="searchForm.invalid" (click)="handleClearForm()">Clear</button>
-
+  <button mat-button color="accent" (click)="handleAddNewUser()">Add New User</button>
 </form>
 
 <div *ngFor="let user of userList$ | async">

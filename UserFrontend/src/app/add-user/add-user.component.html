@@ -1,1 +1,26 @@
-<p>add-user works!</p>
+<mat-card>
+    <form class="form-input" [formGroup]="addUserForm">
+        <label>
+            *First Name:
+            <input type="text" formControlName="firstName">
+        </label>
+        <label>
+            *Last Name:
+            <input type="text" formControlName="lastName">
+        </label>
+        <label>
+            Address:
+            <input type="text" formControlName="address">
+        </label>
+        <label>
+            Age:
+            <input type="text" formControlName="age">
+        </label>
+        <label>
+            Interests:
+            <input type="text" formControlName="age">
+        </label>
+        <button mat-button [disabled]="addUserForm.invalid">Add New User</button>
+        <button mat-button color="accent" (click)="handleBackButton()">Back</button>
+    </form>
+</mat-card>

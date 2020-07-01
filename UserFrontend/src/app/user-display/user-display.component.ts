@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-display',
@@ -14,7 +15,10 @@ export class UserDisplayComponent implements OnInit {
   searchForm: FormGroup;
   public userList$: Observable<User[]>;
 
-  constructor(public userService: UserService, private fb: FormBuilder) { 
+  constructor(
+    public userService: UserService, 
+    private fb: FormBuilder,
+    private router: Router) { 
     this.initializeForm();
   }
 
@@ -35,5 +39,9 @@ export class UserDisplayComponent implements OnInit {
 
   handleClearForm(): void {
     this.userList$ = this.userService.getAllUsers();
+  }
+
+  handleAddNewUser(): void {
+    this.router.navigate(['/add-user']);
   }
 }
