@@ -1,17 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { AddUserComponent } from './add-user.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
-
-class MockRouterService {
-  navigate() {
-    return;
-  }
-}
+import { Location } from '@angular/common';
+import { routes } from '../app-routing.module';
 
 describe('AddUserComponent', () => {
   let component: AddUserComponent;
@@ -19,12 +13,12 @@ describe('AddUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule, SharedModule, RouterTestingModule],
+      imports: [
+        FormsModule, 
+        ReactiveFormsModule, 
+        SharedModule, 
+        RouterTestingModule.withRoutes(routes)],
       declarations: [AddUserComponent],
-      providers: [
-        { provide: Router, useClass: MockRouterService }
-      ]
-
     })
       .compileComponents();
   }));
@@ -38,4 +32,13 @@ describe('AddUserComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should navigate /home on back button press', fakeAsync(() => { 
+    const location: Location = TestBed.inject(Location);
+   
+    component.handleBackButton();
+    tick(); 
+    
+    expect(location.path()).toBe('/home'); 
+  }));
 });
