@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class AddUserComponent implements OnInit {
 
   addUserForm: FormGroup;
+  selectedFile: File
 
   constructor(
     private fb: FormBuilder,
@@ -26,11 +27,16 @@ export class AddUserComponent implements OnInit {
       address: new FormControl(''),
       age: new FormControl('', Validators.min(0)),
       interests: new FormControl(''),
+      picture: new FormControl('')
     })
   }
 
   handleBackButton() {
     this.router.navigate(['']);
+  }
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0]
   }
 
 }

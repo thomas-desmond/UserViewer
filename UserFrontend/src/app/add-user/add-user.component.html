@@ -1,26 +1,37 @@
 <mat-card>
-    <form class="form-input" [formGroup]="addUserForm">
-        <label>
-            *First Name:
-            <input type="text" formControlName="firstName">
-        </label>
-        <label>
-            *Last Name:
-            <input type="text" formControlName="lastName">
-        </label>
-        <label>
-            Address:
-            <input type="text" formControlName="address">
-        </label>
-        <label>
-            Age:
-            <input type="text" formControlName="age">
-        </label>
-        <label>
-            Interests:
-            <input type="text" formControlName="age">
-        </label>
-        <button mat-button [disabled]="addUserForm.invalid">Add New User</button>
-        <button mat-button color="accent" (click)="handleBackButton()">Back</button>
-    </form>
+  <form class="form-input" [formGroup]="addUserForm">
+    <label>
+      *First Name:
+      <input type="text" formControlName="firstName" />
+    </label>
+    <label>
+      *Last Name:
+      <input type="text" formControlName="lastName" />
+    </label>
+    <label>
+      Address:
+      <input type="text" formControlName="address" />
+    </label>
+    <label>
+      Age:
+      <input type="text" formControlName="age" />
+    </label>
+    <label>
+      Interests:
+      <input type="text" formControlName="age" />
+    </label>
+    <label>
+        Picture: 
+      <input
+        style="display: none;"
+        type="file"
+        (change)="onFileChanged($event)"
+        formControlName="picture"
+        #fileInput
+      />
+      <button (click)="fileInput.click()">Select File</button>
+    </label>
+    <button mat-button [disabled]="addUserForm.invalid">Save!</button>
+    <button mat-button color="accent" (click)="handleBackButton()">Back</button>
+  </form>
 </mat-card>
