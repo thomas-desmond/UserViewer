@@ -1,26 +1,47 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  tick,
+  fakeAsync,
+} from "@angular/core/testing";
 
-import { AddUserComponent } from './add-user.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared/shared.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Location } from '@angular/common';
-import { routes } from '../app-routing.module';
+import { AddUserComponent } from "./add-user.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SharedModule } from "../shared/shared/shared.module";
+import { RouterTestingModule } from "@angular/router/testing";
+import { Location } from "@angular/common";
+import { routes } from "../app-routing.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { UserService } from '../services/user.service';
+import { of } from 'rxjs';
 
-describe('AddUserComponent', () => {
+class MockUserService {
+  addNewUser() {
+    return of();
+  }
+}
+
+describe("AddUserComponent", () => {
   let component: AddUserComponent;
   let fixture: ComponentFixture<AddUserComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule, 
-        ReactiveFormsModule, 
-        SharedModule, 
-        RouterTestingModule.withRoutes(routes)],
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        BrowserAnimationsModule,
+        RouterTestingModule.withRoutes(routes),
+        HttpClientTestingModule,
+      ],
       declarations: [AddUserComponent],
-    })
-      .compileComponents();
+      providers: [
+        {provide: UserService, useClass: MockUserService}
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -29,16 +50,41 @@ describe('AddUserComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate /home on back button press', fakeAsync(() => { 
+  it("should navigate /home on back button press", fakeAsync(() => {
     const location: Location = TestBed.inject(Location);
-   
+
     component.handleBackButton();
-    tick(); 
-    
-    expect(location.path()).toBe('/home'); 
+    tick();
+
+    expect(location.path()).toBe("/home");
   }));
+
+  const testCases = [
+    { firstName: "", lastName: "Desmond", expectedFormInvalid: true },
+    { firstName: "Thomas", lastName: "", expectedFormInvalid: true },
+    { firstName: "Thomas", lastName: "Desmond", expectedFormInvalid: false },
+  ];
+  testCases.forEach((tc) => {
+    it("should make add user form invalid if either first name or last name are missing", () => {
+      component.addUserForm.controls.firstName.setValue(tc.firstName);
+      component.addUserForm.controls.lastName.setValue(tc.lastName);
+
+      expect(component.addUserForm.invalid).toBe(
+        tc.expectedFormInvalid,
+        `addUserForm invalid value should have been ${tc.expectedFormInvalid}`
+      );
+    });
+  });
+
+  it("should call add new user when save button is clicked", () => {
+    const mySpy = spyOn(component.userService, 'addNewUser').and.callThrough();
+
+    component.handleSaveNewUser();
+
+    expect(mySpy).toHaveBeenCalledTimes(1);
+  });
 });
