@@ -23,13 +23,13 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Age:</mat-label>
-      <input matInput placeholder="Age" formControlName="age" />
+      <input matInput type="number" placeholder="Age" formControlName="age" />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Interests:</mat-label>
       <input matInput placeholder="Interests" formControlName="interests" />
     </mat-form-field>
-    <div class="move-left">
+    <!-- <div class="move-left">
       <mat-label class="large-font">Picture</mat-label>
       <input
         style="display: none;"
@@ -40,9 +40,9 @@
       />
       <button *ngIf="!selectedFile" mat-button class="select-file" (click)="fileInput.click()">Select File</button>
       <mat-label *ngIf="selectedFile" class="image-uploaded">Image Recieved</mat-label>
-    </div>
+    </div> -->
     <div>
-      <button class="large-font" mat-button color="primary" [disabled]="addUserForm.invalid">
+      <button class="large-font" mat-button color="primary" [disabled]="addUserForm.invalid" (click)="handleSaveNewUser()">
         Save!
       </button>
       <button

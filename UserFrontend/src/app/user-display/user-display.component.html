@@ -30,7 +30,9 @@
 <div *ngFor="let user of userList$ | async">
   <mat-card class="user-card">
     <mat-card-header>
-      <mat-card-title>{{ user.firstName }} {{ user.lastName }}</mat-card-title>
+      <mat-card-title>
+        <div>{{ user.firstName }} {{ user.lastName }}</div>
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content class="user-card-content">
       <div><img src="{{ user.picture }}" height="100" width="100" /></div>
@@ -38,10 +40,15 @@
         <div><b>Address: </b>{{ user.address }}</div>
         <div><b>Age: </b>{{ user.age }}</div>
         <div><b>Interests: </b>{{ user.interests }}</div>
+        <div>
+          <button mat-button class="remove-button" (click)="handleRemove(user.id)">Remove</button>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>
 </div>
-<mat-label class="center" *ngIf="!searchInProgress && (userList$ | async)?.length == 0"
+<mat-label
+  class="center"
+  *ngIf="!searchInProgress && (userList$ | async)?.length == 0"
   >No Results Found</mat-label
 >

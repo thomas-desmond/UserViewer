@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Observable } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import {  HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-display',
@@ -13,8 +15,11 @@ import { Router } from '@angular/router';
 export class UserDisplayComponent implements OnInit {
 
   searchInProgress = false;
+  errorObject: HttpErrorResponse
   searchForm: FormGroup;
-  public userList$: Observable<User[]>;
+  public userListSubject$ = new Subject();
+  public userList: User[];
+  public userList$ = this.userListSubject$.asObservable();
 
   constructor(
     public userService: UserService, 
@@ -24,7 +29,10 @@ export class UserDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userList$ = this.userService.getAllUsers();
+    this.userService.getAllUsers().subscribe(data => {
+      this.userList = data;
+      this.userListSubject$.next(this.userList);
+    });
   }
 
   initializeForm(): void {
@@ -38,7 +46,11 @@ export class UserDisplayComponent implements OnInit {
     this.userList$ = null;
     this.searchInProgress = true;
     setTimeout(function(){ 
-      this.userList$ = this.userService.getUsersBySearch(this.searchForm.controls.searchTerms.value);
+      this.userList$ = this.userService.getUsersBySearch(this.searchForm.controls.searchTerms.value)
+        .pipe(catchError(err => {
+          this.errorObject = err;
+          return throwError(err);
+        }));
       this.searchInProgress = false;
     }.bind(this), 2000);
   }
@@ -50,5 +62,12 @@ export class UserDisplayComponent implements OnInit {
 
   handleAddNewUser(): void {
     this.router.navigate(['/add-user']);
+  }
+
+  handleRemove(userIdToRemove): void {
+    this.userService.removeUser(userIdToRemove).subscribe((data) => {
+      this.userList = this.userList.filter(d => d.id !== userIdToRemove);
+      this.userListSubject$.next(this.userList);
+    });
   }
 }

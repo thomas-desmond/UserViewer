@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-add-user',
@@ -14,7 +16,8 @@ export class AddUserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    public userService: UserService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -29,6 +32,13 @@ export class AddUserComponent implements OnInit {
       interests: new FormControl(''),
       picture: new FormControl('')
     })
+  }
+
+  handleSaveNewUser() {
+    this.addUserForm.controls.picture.setValue("https://user-images-temp.s3.amazonaws.com/face3.jpg");
+    this.userService.addNewUser(new User(this.addUserForm.value)).subscribe(() => {
+      this.router.navigate(['']);
+    });
   }
 
   handleBackButton() {
