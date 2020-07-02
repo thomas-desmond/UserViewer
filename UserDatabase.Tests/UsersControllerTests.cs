@@ -47,5 +47,33 @@ namespace UserDatabase.Tests
                 Assert.AreEqual(result.Value.Count(), expectedNumberOfResults);
             }
         }
+
+        [TestMethod]
+        public async Task DeleteUserRemovesUserwithGivenIdFromDatabase()
+        {
+            using (var context = TestHelpers.GetContextWithData())
+            using (var controller = new UsersController(context))
+            {
+                var idOfEntryToDelete = 2;
+                Assert.AreEqual(context.User.Count(), 3);
+                var result = await controller.DeleteUser(idOfEntryToDelete);
+                Assert.AreEqual(context.User.Count(), 2);
+                Assert.IsFalse(context.User.Any(u => u.Id == idOfEntryToDelete), $"User with ID ${idOfEntryToDelete} should have been deleted");
+            }
+        }
+
+        [TestMethod]
+        public async Task PostUserAddsNewUserToTheDatabase()
+        {
+            using (var context = TestHelpers.GetContextWithData())
+            using (var controller = new UsersController(context))
+            {
+                var userToAdd = new User { FirstName = "Chad", LastName = "Chaderson", Age = 55, Address = "5 5th Street", Interests = "Most things", Picture = "fake.jpg" };
+                Assert.AreEqual(context.User.Count(), 3);
+                var result = await controller.PostUser(userToAdd);
+                Assert.AreEqual(context.User.Count(), 4);
+                Assert.IsTrue(context.User.Any(u => u.LastName == userToAdd.LastName), $"User with last name ${userToAdd.LastName} should have been added");
+            }
+        }
     }
 }
