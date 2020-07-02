@@ -1,27 +1,36 @@
 <mat-card>
-  <form class="form-input" [formGroup]="addUserForm">
-    <label>
-      *First Name:
-      <input type="text" formControlName="firstName" />
-    </label>
-    <label>
-      *Last Name:
-      <input type="text" formControlName="lastName" />
-    </label>
-    <label>
-      Address:
-      <input type="text" formControlName="address" />
-    </label>
-    <label>
-      Age:
-      <input type="text" formControlName="age" />
-    </label>
-    <label>
-      Interests:
-      <input type="text" formControlName="age" />
-    </label>
-    <label>
-        Picture: 
+    <h1>Add New User Form</h1>
+  <form class="new-user-form" [formGroup]="addUserForm">
+    <mat-form-field appearance="fill">
+      <mat-label>*First Name:</mat-label>
+      <input
+        matInput
+        placeholder="First Name (Required)"
+        formControlName="firstName"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>*Last Name:</mat-label>
+      <input
+        matInput
+        placeholder="Last Name (Required)"
+        formControlName="lastName"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Address:</mat-label>
+      <input matInput placeholder="Address" formControlName="address" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Age:</mat-label>
+      <input matInput placeholder="Age" formControlName="age" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Interests:</mat-label>
+      <input matInput placeholder="Interests" formControlName="interests" />
+    </mat-form-field>
+    <div class="move-left">
+      <mat-label class="large-font">Picture</mat-label>
       <input
         style="display: none;"
         type="file"
@@ -29,9 +38,20 @@
         formControlName="picture"
         #fileInput
       />
-      <button (click)="fileInput.click()">Select File</button>
-    </label>
-    <button mat-button [disabled]="addUserForm.invalid">Save!</button>
-    <button mat-button color="accent" (click)="handleBackButton()">Back</button>
+      <button mat-button class="select-file" (click)="fileInput.click()">Select File</button>
+    </div>
+    <div>
+      <button class="large-font" mat-button [disabled]="addUserForm.invalid">
+        Save!
+      </button>
+      <button
+        class="large-font"
+        mat-button
+        color="accent"
+        (click)="handleBackButton()"
+      >
+        Back
+      </button>
+    </div>
   </form>
 </mat-card>

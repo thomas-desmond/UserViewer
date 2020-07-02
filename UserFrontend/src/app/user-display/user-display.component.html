@@ -1,28 +1,47 @@
-<h1>User Search</h1>
-<form class="form-input" [formGroup]="searchForm">
-  <label>
+<mat-card class="center">
+  <h1>User Search</h1>
+  <form class="form-input" [formGroup]="searchForm">
+    <mat-label>
       Enter Search Terms:
-      <input type="text" formControlName="searchTerms">
-  </label>
-  <button mat-button color="primary" [disabled]="searchForm.invalid" (click)="handleFormSubmit()">Submit</button>
-  <button mat-button color="accent" [disabled]="searchForm.invalid" (click)="handleClearForm()">Clear</button>
-  <button mat-button color="accent" (click)="handleAddNewUser()">Add New User</button>
-</form>
+      <input type="text" formControlName="searchTerms" />
+    </mat-label>
+    <button
+      mat-button
+      color="primary"
+      [disabled]="searchForm.invalid"
+      (click)="handleFormSubmit()"
+    >
+      Submit
+    </button>
+    <button
+      mat-button
+      color="accent"
+      [disabled]="searchForm.invalid"
+      (click)="handleClearForm()"
+    >
+      Clear
+    </button>
+    <button mat-button color="accent" (click)="handleAddNewUser()">
+      Add New User
+    </button>
+  </form>
+</mat-card>
 <mat-spinner *ngIf="searchInProgress"></mat-spinner>
 <div *ngFor="let user of userList$ | async">
-    <mat-card class="user-card">
-        <mat-card-header>
-            <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="user-card-content">
-            <div><img src="{{user.picture}}" height="100" width="100">
-            </div>
-            <div>
-                <div><b>Address: </b>{{user.address}}</div>
-                <div><b>Age: </b>{{user.age}}</div>
-                <div><b>Interests: </b>{{user.interests}}</div>
-            </div>
-        </mat-card-content>
-    </mat-card>
+  <mat-card class="user-card">
+    <mat-card-header>
+      <mat-card-title>{{ user.firstName }} {{ user.lastName }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="user-card-content">
+      <div><img src="{{ user.picture }}" height="100" width="100" /></div>
+      <div>
+        <div><b>Address: </b>{{ user.address }}</div>
+        <div><b>Age: </b>{{ user.age }}</div>
+        <div><b>Interests: </b>{{ user.interests }}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
-<label *ngIf="!searchInProgress && (userList$ | async)?.length==0">No Results Found</label>
+<mat-label class="center" *ngIf="!searchInProgress && (userList$ | async)?.length == 0"
+  >No Results Found</mat-label
+>
