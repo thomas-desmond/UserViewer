@@ -38,10 +38,11 @@
         formControlName="picture"
         #fileInput
       />
-      <button mat-button class="select-file" (click)="fileInput.click()">Select File</button>
+      <button *ngIf="!selectedFile" mat-button class="select-file" (click)="fileInput.click()">Select File</button>
+      <mat-label *ngIf="selectedFile" class="image-uploaded">Image Recieved</mat-label>
     </div>
     <div>
-      <button class="large-font" mat-button [disabled]="addUserForm.invalid">
+      <button class="large-font" mat-button color="primary" [disabled]="addUserForm.invalid">
         Save!
       </button>
       <button

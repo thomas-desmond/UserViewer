@@ -38,5 +38,4 @@ export class AddUserComponent implements OnInit {
   onFileChanged(event) {
     this.selectedFile = event.target.files[0]
   }
-
 }
