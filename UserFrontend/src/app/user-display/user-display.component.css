@@ -44,3 +44,7 @@ mat-label {
 mat-form-field {
   width: 50%;
 }
+
+button {
+  margin: 5px;
+}

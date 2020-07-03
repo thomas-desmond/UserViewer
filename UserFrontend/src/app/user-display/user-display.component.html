@@ -8,22 +8,25 @@
         *ngIf="
           searchForm.controls.searchTerms.errors?.whitespace &&
           (searchForm.controls.searchTerms.touched ||
-          searchForm.controls.searchTerms.dirty)">
-          Search Cannot be Only Whitespace</mat-error>
+            searchForm.controls.searchTerms.dirty)
+        "
+      >
+        Search Cannot be Only Whitespace</mat-error
+      >
     </mat-form-field>
 
     <button
-      mat-button
+      mat-raised-button
       color="primary"
       [disabled]="searchForm.invalid"
       (click)="handleFormSubmit()"
     >
       Submit
     </button>
-    <button mat-button color="accent" (click)="handleClearForm()">
+    <button mat-raised-button color="accent" (click)="handleClearForm()">
       Clear
     </button>
-    <button mat-button color="accent" (click)="handleAddNewUser()">
+    <button mat-raised-button color="accent" (click)="handleAddNewUser()">
       Add New User
     </button>
   </form>
@@ -44,8 +47,8 @@
         <div><b>Interests: </b>{{ user.interests }}</div>
         <div>
           <button
-            mat-button
-            class="remove-button"
+            mat-stroked-button
+            color="warn"
             (click)="handleRemove(user.id)"
           >
             Remove

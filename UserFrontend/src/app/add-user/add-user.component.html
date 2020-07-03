@@ -1,5 +1,5 @@
 <mat-card>
-    <h1>Add New User Form</h1>
+  <h1>Add New User Form</h1>
   <form class="new-user-form" [formGroup]="addUserForm">
     <mat-form-field appearance="fill">
       <mat-label>*First Name:</mat-label>
@@ -42,12 +42,18 @@
       <mat-label *ngIf="selectedFile" class="image-uploaded">Image Recieved</mat-label>
     </div> -->
     <div>
-      <button class="large-font" mat-button color="primary" [disabled]="addUserForm.invalid" (click)="handleSaveNewUser()">
+      <button
+        class="large-font"
+        mat-raised-button
+        color="primary"
+        [disabled]="addUserForm.invalid"
+        (click)="handleSaveNewUser()"
+      >
         Save!
       </button>
       <button
         class="large-font"
-        mat-button
+        mat-raised-button
         color="accent"
         (click)="handleBackButton()"
       >
