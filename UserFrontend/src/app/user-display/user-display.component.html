@@ -1,4 +1,4 @@
-<mat-card class="center">
+<mat-card>
   <h1>User Search</h1>
   <form class="form-input" [formGroup]="searchForm">
     <mat-label>
@@ -13,17 +13,20 @@
     >
       Submit
     </button>
-    <button
-      mat-button
-      color="accent"
-      [disabled]="searchForm.invalid"
-      (click)="handleClearForm()"
-    >
+    <button mat-button color="accent" (click)="handleClearForm()">
       Clear
     </button>
     <button mat-button color="accent" (click)="handleAddNewUser()">
       Add New User
     </button>
+    <mat-error
+      *ngIf="
+        searchForm.controls.searchTerms.errors?.whitespace &&
+        (searchForm.controls.searchTerms.touched ||
+          searchForm.controls.searchTerms.dirty)
+      "
+      >Search Cannot be Only Whitespace</mat-error
+    >
   </form>
 </mat-card>
 <mat-spinner *ngIf="searchInProgress"></mat-spinner>

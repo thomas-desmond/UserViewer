@@ -20,6 +20,7 @@ export class UserDisplayComponent implements OnInit {
   public userListSubject$ = new Subject();
   public userList: User[];
   public userList$ = this.userListSubject$.asObservable();
+  public millisecondsToShowSpinner: number = 2000;
 
   constructor(
     public userService: UserService, 
@@ -37,8 +38,14 @@ export class UserDisplayComponent implements OnInit {
 
   initializeForm(): void {
     this.searchForm = this.fb.group({
-      searchTerms: new FormControl('', Validators.required),
+      searchTerms: new FormControl('', [Validators.required, this.whiteSpaceOnlyValidator])
     });
+  }
+  public whiteSpaceOnlyValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    console.log('isValid', isValid)
+    return isValid ? null : { 'whitespace': true };
   }
 
   handleFormSubmit(): void {
@@ -52,7 +59,8 @@ export class UserDisplayComponent implements OnInit {
           return throwError(err);
         }));
       this.searchInProgress = false;
-    }.bind(this), 2000);
+      console.log('USERLIST', this.userList$)
+    }.bind(this), this.millisecondsToShowSpinner);
   }
 
   handleClearForm(): void {
