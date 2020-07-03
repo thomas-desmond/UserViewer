@@ -4,12 +4,12 @@ import { catchError } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { User } from "../models/user.model";
+import { Constants } from '../shared/shared/constants';
 
 @Injectable({
   providedIn: "root",
 })
 export class UserService {
-  private userApiBaseUrl = "https://localhost:44308/api/users";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -20,25 +20,25 @@ export class UserService {
 
   public getAllUsers(): Observable<User[]> {
     return this.httpClient
-      .get<User[]>(this.userApiBaseUrl)
+      .get<User[]>(Constants.userApiBaseUrl)
       .pipe(catchError(this.handleError));
   }
 
   public getUsersBySearch(searchTerm: string): Observable<User[]> {
     return this.httpClient
-      .get<User[]>(this.userApiBaseUrl + `/search/${searchTerm}`)
+      .get<User[]>(Constants.userApiBaseUrl + `/search/${searchTerm}`)
       .pipe(catchError(this.handleError));
   }
 
   public addNewUser(userToAdd: User): Observable<User> {
     console.log(userToAdd);
     return this.httpClient
-      .post<User>(this.userApiBaseUrl, userToAdd, this.httpOptions)
+      .post<User>(Constants.userApiBaseUrl, userToAdd, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   public removeUser(idOfUserToRemove: number): Observable<User> {
-    return this.httpClient.delete<User>(this.userApiBaseUrl + `/${idOfUserToRemove}`)
+    return this.httpClient.delete<User>(Constants.userApiBaseUrl + `/${idOfUserToRemove}`)
       .pipe(catchError(this.handleError))
   }
 
