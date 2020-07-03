@@ -44,7 +44,6 @@ export class UserDisplayComponent implements OnInit {
   public whiteSpaceOnlyValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
-    console.log('isValid', isValid)
     return isValid ? null : { 'whitespace': true };
   }
 
@@ -59,12 +58,12 @@ export class UserDisplayComponent implements OnInit {
           return throwError(err);
         }));
       this.searchInProgress = false;
-      console.log('USERLIST', this.userList$)
     }.bind(this), this.millisecondsToShowSpinner);
   }
 
   handleClearForm(): void {
     this.searchForm.controls.searchTerms.setValue('');
+    this.searchForm.controls.searchTerms.setErrors(null);
     this.userList$ = this.userService.getAllUsers();
   }
 

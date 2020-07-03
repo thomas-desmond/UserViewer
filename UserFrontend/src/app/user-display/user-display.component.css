@@ -40,3 +40,7 @@ button {
 mat-label {
   font-size: 20px;
 }
+
+mat-form-field {
+  width: 50%;
+}
