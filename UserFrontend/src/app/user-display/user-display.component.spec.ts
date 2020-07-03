@@ -15,6 +15,10 @@ import { SharedModule } from "../shared/shared/shared.module";
 import { RouterTestingModule } from "@angular/router/testing";
 import { routes } from "../app-routing.module";
 import { Location } from "@angular/common";
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from "@angular/platform-browser/animations";
 
 class MockUserService {
   getAllUsers() {
@@ -40,6 +44,7 @@ describe("UserDisplayComponent", () => {
         ReactiveFormsModule,
         SharedModule,
         RouterTestingModule.withRoutes(routes),
+        NoopAnimationsModule,
       ],
       declarations: [UserDisplayComponent],
       providers: [{ provide: UserService, useClass: MockUserService }],
@@ -77,14 +82,6 @@ describe("UserDisplayComponent", () => {
     expect(mySpy).toHaveBeenCalledTimes(2);
   });
 
-  it("should get all users when form clear button is clicked", () => {
-    const mySpy = spyOn(component.userService, "getAllUsers").and.callThrough();
-
-    component.handleClearForm();
-
-    expect(mySpy).toHaveBeenCalledTimes(1);
-  });
-
   it("should remove user when remove button clicked", () => {
     const mySpy = spyOn(component.userService, "removeUser").and.callThrough();
 
@@ -102,9 +99,9 @@ describe("UserDisplayComponent", () => {
 
     expect(location.path()).toBe("/add-user");
   }));
-  
+
   describe("search form", () => {
-    it("search form should be invalid when search terms are only whitespace", () => {
+    it("should be invalid when search terms are only whitespace", () => {
       component.searchForm.controls.searchTerms.setValue("     ");
 
       expect(component.searchForm.invalid).toBeTruthy(
@@ -115,7 +112,7 @@ describe("UserDisplayComponent", () => {
       ).toBeTruthy("Search Term control should have the whitespace error");
     });
 
-    it("search form should be invalid when there are no search terms", () => {
+    it("should be invalid when there are no search terms", () => {
       component.searchForm.controls.searchTerms.setValue("");
 
       expect(component.searchForm.invalid).toBeTruthy(
@@ -129,13 +126,34 @@ describe("UserDisplayComponent", () => {
       { searchTerm: "   Thomas   " },
     ];
     testCases.forEach((tc) => {
-      it("search form should be valid when there are search terms", () => {
+      it("should be valid when there are search terms", () => {
         component.searchForm.controls.searchTerms.setValue(tc.searchTerm);
 
         expect(component.searchForm.valid).toBeTruthy(
           `Search form should be valid with search term ${tc.searchTerm}`
         );
       });
+    });
+
+    it("should get all users when form clear button is clicked", () => {
+      const mySpy = spyOn(
+        component.userService,
+        "getAllUsers"
+      ).and.callThrough();
+
+      component.handleClearForm();
+
+      expect(mySpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should clear search form and errors when clear button is clicked", () => {
+      component.searchForm.controls.searchTerms.setValue('    ');
+
+      component.handleClearForm();
+
+      expect(component.searchForm.controls.searchTerms.value).toBe('');
+      expect(component.searchForm.controls.searchTerms.errors).toBeNull();
+
     });
   });
 });
