@@ -61,7 +61,7 @@ namespace UserDatabase
                 endpoints.MapControllers();
             });
 
-            AddTestData(app);
+            //AddTestData(app);
         }
 
         private async void AddTestData(IApplicationBuilder app)
