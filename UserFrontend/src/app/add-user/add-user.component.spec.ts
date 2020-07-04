@@ -87,4 +87,20 @@ describe("AddUserComponent", () => {
 
     expect(mySpy).toHaveBeenCalledTimes(1);
   });
+
+  it("getSelectedPictureIndex should return picture index of 1 if no picture has been selected", () => {
+    component.addUserForm.controls.picture.setValue('');
+
+    const actualPictureIndex = component.getSelectedPictureIndex();
+
+    expect(actualPictureIndex).toBe(1);
+  })
+
+  it("getSelectedPictureIndex should return correct picture index if a picture has been selected", () => {
+    component.addUserForm.controls.picture.setValue(5);
+
+    const actualPictureIndex = component.getSelectedPictureIndex();
+
+    expect(actualPictureIndex).toBe(5);
+  })
 });
