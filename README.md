@@ -7,11 +7,14 @@
 
 
 ## Steps To Build Projects (after cloning project)
-**.NET Backend**
+**.NET Backend** (do this one first)
 
  1. Open UserDatabase.sln file inside of UserDatabase folder with Visual Studio 2019. (Set the default startup project to UserDatabase project if it is not already set)
- 2. Press F5 or Run project, if all goes well a chrome browser should open up at (https://localhost:44308/api/users) with some JSON data. (Note: Closing the browser window will end the WebApi running instance, so please leave this running)
- 3. The .NET backend is now running!
+ 2. Build the project with Ctrl+Shift+B or going to the Build menu bar item and selecting Build
+ 3. Once the build completes successfully, open up the 'Package Manager Console'. Use the Search bar in Visual Studio 2019 to easily find the Package Manager Console
+ 4. Within Package Manager Console run the 'Update-Database' command. This will create a blank in-memory database for you. (Don't worry a few seed data items will be added in automatically in the next steps)
+ 5. Press F5 or Run project, if all goes well a chrome browser should open up at (https://localhost:44308/api/users) with some JSON data. (Note: Closing the browser window will end the WebApi running instance, so please leave this running)
+ 6. The .NET backend is now running!
 
 **Angular Frontend**
 
@@ -31,9 +34,9 @@
 
 **.NET**
 
- 1. Ensure project has been built or ran at least once so Visual Studio can find the associated tests
+ 1. Ensure the project has been built or ran at least once so Visual Studio can find the associated tests
  2. All tests should now be visible from the "Test Explorer" window
- 3. Right click and run all the test
+ 3. Right-click and run all the test
 
 **Angular**
 1. Navigate to the UserFrontend folder within a Powershell instance. 
