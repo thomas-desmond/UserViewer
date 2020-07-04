@@ -61,7 +61,7 @@ namespace UserDatabase
                 endpoints.MapControllers();
             });
 
-            //AddTestData(app);
+            AddTestData(app);
         }
 
         private async void AddTestData(IApplicationBuilder app)
@@ -71,7 +71,7 @@ namespace UserDatabase
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var context = scope.ServiceProvider.GetService<UserDatabaseContext>();
-                if (context.User.Count() >= 0)
+                if (context.User.Count() > 0)
                 {
                     return;
                 }
