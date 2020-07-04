@@ -29,18 +29,14 @@
       <mat-label>Interests:</mat-label>
       <input matInput placeholder="Interests" formControlName="interests" />
     </mat-form-field>
-    <!-- <div class="move-left">
-      <mat-label class="large-font">Picture</mat-label>
-      <input
-        style="display: none;"
-        type="file"
-        (change)="onFileChanged($event)"
-        formControlName="picture"
-        #fileInput
-      />
-      <button *ngIf="!selectedFile" mat-button class="select-file" (click)="fileInput.click()">Select File</button>
-      <mat-label *ngIf="selectedFile" class="image-uploaded">Image Recieved</mat-label>
-    </div> -->
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="picture">
+      <mat-button-toggle value="1"><img src="https://user-images-temp.s3.amazonaws.com/face1.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="2"><img src="https://user-images-temp.s3.amazonaws.com/face2.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="3"><img src="https://user-images-temp.s3.amazonaws.com/face3.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="4"><img src="https://user-images-temp.s3.amazonaws.com/face4.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="5"><img src="https://user-images-temp.s3.amazonaws.com/face5.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="6"><img src="https://user-images-temp.s3.amazonaws.com/face6.jpg" height="100" width="100" /></mat-button-toggle>
+    </mat-button-toggle-group>
     <div>
       <button
         class="large-font"

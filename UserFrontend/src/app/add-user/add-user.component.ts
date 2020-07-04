@@ -35,10 +35,19 @@ export class AddUserComponent implements OnInit {
   }
 
   handleSaveNewUser() {
-    this.addUserForm.controls.picture.setValue("https://user-images-temp.s3.amazonaws.com/face3.jpg");
+    const selectedPictureIndex = this.getSelectedPictureIndex();
+    this.addUserForm.controls.picture.setValue(`https://user-images-temp.s3.amazonaws.com/face${selectedPictureIndex}.jpg`);
     this.userService.addNewUser(new User(this.addUserForm.value)).subscribe(() => {
       this.router.navigate(['']);
     });
+  }
+
+  public getSelectedPictureIndex(): number {
+    let selectedPictureIndex = this.addUserForm.controls.picture.value;
+    if (!selectedPictureIndex) {
+      selectedPictureIndex = 1;
+    }
+    return selectedPictureIndex;
   }
 
   handleBackButton() {
