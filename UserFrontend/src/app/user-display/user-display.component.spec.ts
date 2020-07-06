@@ -152,7 +152,7 @@ describe("UserDisplayComponent", () => {
       component.handleClearForm();
 
       expect(component.searchForm.controls.searchTerms.value).toBe('');
-      expect(component.searchForm.controls.searchTerms.errors).toBeNull();
+      expect(component.searchForm.controls.searchTerms.invalid).toBeTruthy();
 
     });
   });

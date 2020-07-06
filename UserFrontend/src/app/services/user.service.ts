@@ -31,7 +31,6 @@ export class UserService {
   }
 
   public addNewUser(userToAdd: User): Observable<User> {
-    console.log(userToAdd);
     return this.httpClient
       .post<User>(Constants.userApiBaseUrl, userToAdd, this.httpOptions)
       .pipe(catchError(this.handleError));

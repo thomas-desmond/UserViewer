@@ -63,8 +63,9 @@ export class UserDisplayComponent implements OnInit {
 
   handleClearForm(): void {
     this.searchForm.controls.searchTerms.setValue('');
-    this.searchForm.controls.searchTerms.setErrors(null);
-    this.userList$ = this.userService.getAllUsers();
+    this.searchForm.controls.searchTerms.setErrors({});
+
+    this.userList$ = this.userService.getAllUsers();    
   }
 
   handleAddNewUser(): void {
