@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Observable, throwError, Subject } from 'rxjs';
+import { throwError, Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
-import {  HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-display',
@@ -15,7 +14,6 @@ import {  HttpErrorResponse } from '@angular/common/http';
 export class UserDisplayComponent implements OnInit {
 
   searchInProgress = false;
-  errorObject: HttpErrorResponse
   searchForm: FormGroup;
   public userListSubject$ = new Subject();
   public userList: User[];
@@ -54,7 +52,6 @@ export class UserDisplayComponent implements OnInit {
     setTimeout(function(){ 
       this.userList$ = this.userService.getUsersBySearch(this.searchForm.controls.searchTerms.value)
         .pipe(catchError(err => {
-          this.errorObject = err;
           return throwError(err);
         }));
       this.searchInProgress = false;

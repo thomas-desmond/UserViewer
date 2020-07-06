@@ -12,7 +12,6 @@ import { User } from '../models/user.model';
 export class AddUserComponent implements OnInit {
 
   addUserForm: FormGroup;
-  selectedFile: File
 
   constructor(
     private fb: FormBuilder,
@@ -52,9 +51,5 @@ export class AddUserComponent implements OnInit {
 
   handleBackButton() {
     this.router.navigate(['']);
-  }
-
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0]
   }
 }
