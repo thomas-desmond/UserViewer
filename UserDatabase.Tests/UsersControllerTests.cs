@@ -1,10 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using UserDatabase.Controllers;
-using UserDatabase.Data;
 using UserDatabase.Models;
 
 namespace UserDatabase.Tests
