@@ -15,10 +15,7 @@ import { SharedModule } from "../shared/shared/shared.module";
 import { RouterTestingModule } from "@angular/router/testing";
 import { routes } from "../app-routing.module";
 import { Location } from "@angular/common";
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule,
-} from "@angular/platform-browser/animations";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
 class MockUserService {
   getAllUsers() {
@@ -32,7 +29,7 @@ class MockUserService {
   }
 }
 
-describe("UserDisplayComponent", () => {
+fdescribe("UserDisplayComponent", () => {
   let component: UserDisplayComponent;
   let fixture: ComponentFixture<UserDisplayComponent>;
 
@@ -147,13 +144,12 @@ describe("UserDisplayComponent", () => {
     });
 
     it("should clear search form and errors when clear button is clicked", () => {
-      component.searchForm.controls.searchTerms.setValue('    ');
+      component.searchForm.controls.searchTerms.setValue("    ");
 
       component.handleClearForm();
 
-      expect(component.searchForm.controls.searchTerms.value).toBe('');
+      expect(component.searchForm.controls.searchTerms.value).toBe("");
       expect(component.searchForm.controls.searchTerms.invalid).toBeTruthy();
-
     });
   });
 });
