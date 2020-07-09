@@ -1,0 +1,33 @@
+<mat-card>
+    <h1>User Search</h1>
+    <form class="form-input" [formGroup]="searchForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Search Term</mat-label>
+        <input matInput placeholder="Search Term" formControlName="searchTerms" />
+        <mat-error
+          *ngIf="
+            searchForm.controls.searchTerms.errors?.whitespace &&
+            (searchForm.controls.searchTerms.touched ||
+              searchForm.controls.searchTerms.dirty)
+          "
+        >
+          Search Cannot be Only Whitespace</mat-error
+        >
+      </mat-form-field>
+  
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="searchForm.invalid"
+        (click)="handleFormSubmit()"
+      >
+        Submit
+      </button>
+      <button mat-raised-button color="accent" (click)="handleClearForm()">
+        Clear
+      </button>
+      <button mat-raised-button color="accent" (click)="handleAddNewUser()">
+        Add New User
+      </button>
+    </form>
+  </mat-card>

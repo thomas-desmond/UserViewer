@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, throwError, of } from "rxjs";
+import { BehaviorSubject, Observable, throwError, of, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
@@ -10,6 +10,7 @@ import { Constants } from '../shared/shared/constants';
   providedIn: "root",
 })
 export class UserService {
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

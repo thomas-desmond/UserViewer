@@ -1,36 +1,8 @@
-<mat-card>
-  <h1>User Search</h1>
-  <form class="form-input" [formGroup]="searchForm">
-    <mat-form-field appearance="fill">
-      <mat-label>Search Term</mat-label>
-      <input matInput placeholder="Search Term" formControlName="searchTerms" />
-      <mat-error
-        *ngIf="
-          searchForm.controls.searchTerms.errors?.whitespace &&
-          (searchForm.controls.searchTerms.touched ||
-            searchForm.controls.searchTerms.dirty)
-        "
-      >
-        Search Cannot be Only Whitespace</mat-error
-      >
-    </mat-form-field>
+<app-user-search
+  (newUserList)="handleNewUserList($event)"
+  (searchInProgress)="handleSearchInProgress($event)"
+></app-user-search>
 
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="searchForm.invalid"
-      (click)="handleFormSubmit()"
-    >
-      Submit
-    </button>
-    <button mat-raised-button color="accent" (click)="handleClearForm()">
-      Clear
-    </button>
-    <button mat-raised-button color="accent" (click)="handleAddNewUser()">
-      Add New User
-    </button>
-  </form>
-</mat-card>
 <mat-spinner *ngIf="searchInProgress"></mat-spinner>
 <div *ngFor="let user of userList$ | async">
   <mat-card class="user-card">
@@ -49,7 +21,8 @@
           <button
             mat-stroked-button
             color="warn"
-            (click)="handleRemove(user.id)">
+            (click)="handleRemove(user.id)"
+          >
             Remove
           </button>
         </div>

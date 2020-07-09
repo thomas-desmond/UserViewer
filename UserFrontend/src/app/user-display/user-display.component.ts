@@ -1,78 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { throwError, Subject } from 'rxjs';
-import { User } from '../models/user.model';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { catchError } from 'rxjs/operators';
+import { Component, OnInit, Input } from "@angular/core";
+import { UserService } from "../services/user.service";
+import { Subject, Observable } from "rxjs";
+import { User } from "../models/user.model";
 
 @Component({
-  selector: 'app-user-display',
-  templateUrl: './user-display.component.html',
-  styleUrls: ['./user-display.component.css']
+  selector: "app-user-display",
+  templateUrl: "./user-display.component.html",
+  styleUrls: ["./user-display.component.css"],
 })
 export class UserDisplayComponent implements OnInit {
-
-  searchInProgress = false;
-  searchForm: FormGroup;
-  public userListSubject$ = new Subject();
+  searchInProgress: boolean = false;
+  public userListSubject$ = new Subject<User[]>();
   public userList: User[];
-  public userList$ = this.userListSubject$.asObservable();
-  public millisecondsToShowSpinner: number = 2000;
+  public userList$ = new  Observable<User[]>();
 
-  constructor(
-    public userService: UserService, 
-    private fb: FormBuilder,
-    private router: Router) { 
-    this.initializeForm();
-  }
+  constructor(public userService: UserService) {}
 
-  ngOnInit() {
-    this.userService.getAllUsers().subscribe(data => {
-      this.userList = data;
-      this.userListSubject$.next(this.userList);
-    });
-  }
-
-  initializeForm(): void {
-    this.searchForm = this.fb.group({
-      searchTerms: new FormControl('', [Validators.required, this.whiteSpaceOnlyValidator])
-    });
-  }
-  public whiteSpaceOnlyValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { 'whitespace': true };
-  }
-
-  handleFormSubmit(): void {
-    // TODO: Do some form validation
-    this.userList$ = null;
-    this.searchInProgress = true;
-    setTimeout(function(){ 
-      this.userList$ = this.userService.getUsersBySearch(this.searchForm.controls.searchTerms.value)
-        .pipe(catchError(err => {
-          return throwError(err);
-        }));
-      this.searchInProgress = false;
-    }.bind(this), this.millisecondsToShowSpinner);
-  }
-
-  handleClearForm(): void {
-    this.searchForm.controls.searchTerms.setValue('');
-    this.searchForm.controls.searchTerms.setErrors({});
-
-    this.userList$ = this.userService.getAllUsers();    
-  }
-
-  handleAddNewUser(): void {
-    this.router.navigate(['/add-user']);
-  }
+  ngOnInit() {}
 
   handleRemove(userIdToRemove): void {
     this.userService.removeUser(userIdToRemove).subscribe((data) => {
-      this.userList = this.userList.filter(d => d.id !== userIdToRemove);
+      this.userList = this.userList.filter((d) => d.id !== userIdToRemove);
       this.userListSubject$.next(this.userList);
+      this.userList$ = this.userListSubject$.asObservable();
     });
+  }
+
+  public handleNewUserList(newUserList$: Observable<User[]>) {
+    console.log("TEST");
+    this.userList$ = newUserList$;
+  }
+
+  public handleSearchInProgress(searchInProgressValue: boolean) {
+    this.searchInProgress = searchInProgressValue;
   }
 }
