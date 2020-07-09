@@ -46,7 +46,6 @@ export class UserDisplayComponent implements OnInit {
   }
 
   handleFormSubmit(): void {
-    // TODO: Do some form validation
     this.userList$ = null;
     this.searchInProgress = true;
     setTimeout(function(){ 
