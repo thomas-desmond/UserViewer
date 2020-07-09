@@ -1,0 +1,60 @@
+<mat-card>
+  <h1>Add New User Form</h1>
+  <form class="new-user-form" [formGroup]="addUserForm">
+    <mat-form-field appearance="fill">
+      <mat-label>*First Name:</mat-label>
+      <input
+        matInput
+        placeholder="First Name (Required)"
+        formControlName="firstName"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>*Last Name:</mat-label>
+      <input
+        matInput
+        placeholder="Last Name (Required)"
+        formControlName="lastName"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Address:</mat-label>
+      <input matInput placeholder="Address" formControlName="address" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Age:</mat-label>
+      <input matInput type="number" placeholder="Age" formControlName="age" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Interests:</mat-label>
+      <input matInput placeholder="Interests" formControlName="interests" />
+    </mat-form-field>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="picture">
+      <mat-button-toggle value="1"><img src="https://user-images-temp.s3.amazonaws.com/face1.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="2"><img src="https://user-images-temp.s3.amazonaws.com/face2.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="3"><img src="https://user-images-temp.s3.amazonaws.com/face3.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="4"><img src="https://user-images-temp.s3.amazonaws.com/face4.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="5"><img src="https://user-images-temp.s3.amazonaws.com/face5.jpg" height="100" width="100" /></mat-button-toggle>
+      <mat-button-toggle value="6"><img src="https://user-images-temp.s3.amazonaws.com/face6.jpg" height="100" width="100" /></mat-button-toggle>
+    </mat-button-toggle-group>
+    <div>
+      <button
+        class="large-font"
+        mat-raised-button
+        color="primary"
+        [disabled]="addUserForm.invalid"
+        (click)="handleSaveNewUser()"
+      >
+        Save!
+      </button>
+      <button
+        class="large-font"
+        mat-raised-button
+        color="accent"
+        (click)="handleBackButton()"
+      >
+        Back
+      </button>
+    </div>
+  </form>
+</mat-card>
