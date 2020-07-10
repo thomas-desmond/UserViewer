@@ -42,3 +42,7 @@
 1. Navigate to the UserFrontend folder within a Powershell instance. 
 2. From the UserFrontend folder ensure a "npm i" command has already been completed to install all dependencies.
 3. Run the "npm t" command to run all Jasmine tests using the Karma test runner, a new browser will pop up showing the results of the latest test run. (Results may also be viewed in the console)
+
+
+![Imgur](https://imgur.com/6jqR9Le.png)
+![Imgur](https://imgur.com/M3OT9PE.png)
